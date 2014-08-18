@@ -1,0 +1,417 @@
+#main
+$Initialize
+Warlord (in the year %year)
+Name: %name1$name2 (Born $born)
+Son of: %name1$name2 (Born $born_father, death $death_father)
+Father of: %name1$name2 (Born $born_son)
+--
+Age: %Age_temp (%true_age)
+Glory: $glory
+Status: $status
+Outfit: $outfit
+Statistics: $Final_Statistics
+Weapon Skills: $Weapon
+Archetype: $archetype
+Role: $role
+$appearance
+Distinctive Feature: %temp_distinctive
+
+#Initialize
+%year=485
+%name1=$name1
+%dummy=$skill
+%temp_statistics=$statistics
+%app_mod=0
+%temp_distinctive=$N_distinctive
+%app+=app_mod
+%age_temp=$age
+
+#born
+%born=%year-%true_age
+%born
+
+#born_father
+3 %born_father=%born-21-[1D6]
+2 %born_father=%born-27-[D10]
+1 %born_father=%born-37-[D20]
+%born_father
+
+#death_father
+%death_father=%born+[D20]
+$if %death_father gt %year $then $death_father
+%death_father
+
+#born_son
+3 %born_son=21+[1D6]
+2 %born_son=27+[D10]
+1 %born_son=37+[D20]
+%born_son=%born+%born_son
+$if %born_son gt %year $then to be
+%born_son
+
+
+#N_distinctive
+1 $distinctive{set_dist}
+1 $distinctive{set_dist} & $distinctive{set_dist}
+1 $distinctive{set_dist} & $distinctive{set_dist} & $distinctive{set_dist}
+
+
+#Final_Statistics
+%HP=%con+%siz
+%dam_index=%str+%siz
+Size: %siz DEX: %dex STR: %str CON: %con APP: %app $damage(%dam_index) HP: %hp
+
+#name1
+1 Acca
+1 Agla
+1 Agraa
+1 An
+1 And(o)
+1 Ar
+1 Aug
+1 Ba
+1 Bal(a)
+1 Bande
+1 Baude
+1 Bedi
+1 Bel(e)
+1 Bellan
+1 Ber
+1 Berci
+1 Ble
+1 Bod
+1 Bra
+1 Bran
+1 Bre
+1 Bru
+1 Ca
+1 Cad
+1 Caher
+1 Cal(o)
+1 Cane
+1 Car(a)
+1 Celi
+1 Clama
+1 Clau
+1 Dago
+1 Di
+1 Din(a)
+1 Dodi
+1 Dris
+1 Dru
+1 Dur
+1 Ec
+1 Eli
+1 Er
+1 Esca
+1 Esco
+1 Ev(a)
+1 Fal(a)
+1 Fer
+1 Foran
+1 Ga
+1 Gale
+1 Gan
+1 Gar
+1 Ge
+1 Ger
+1 Ging
+1 Gir
+1 Gola
+1 Gor(a)
+1 Gorn(e)
+1 Gorve
+1 Gringe
+1 Guine
+1 Har
+1 Her(i)
+1 Hum
+1 I
+1 Iva
+1 Lamo
+1 Lan
+1 Lar(a)
+1 Leode
+1 Lio
+1 Ma
+1 Mabona
+1 Mad
+1 Mar
+1 Med
+1 Melea
+1 Mer
+1 Meria
+1 Mor
+1 Mord
+1 Nero
+1 O
+1 Pal(a)
+1 Par
+1 Pedi
+1 Pel(i)
+1 Perce
+1 Pere
+1 Sagre
+1 Sar(a)
+1 Sel(e)
+1 Sor
+1 Tor
+1 Tris
+1 Tyo
+1 Uri
+1 Val(a)
+1 Vel(i)
+1 Vorti
+
+#name2
+1 dan
+1 das
+1 deles
+1 din
+1 dinis
+1 doc
+1 don
+1 dor
+1 dos
+1 dur
+1 ens
+1 flet
+1 gan
+1 ger
+1 gern
+1 gore
+1 gran
+1 gros
+1 halt
+1 heret
+1 heris
+1 holt
+1 hus
+1 lac
+1 lan
+1 lant
+1 les
+1 lin
+1 lois
+1 lon
+1 mant
+1 magus
+1 mart
+1 medes
+1 mor
+1 nant
+1 nas
+1 nel
+1 net
+1 nor
+1 ons
+1 rain
+1 ran
+1 rant
+1 reint
+1 red
+1 ret
+1 reth
+1 ris
+1 ron
+1 sor
+1 stan
+1 tan
+1 tor
+1 vain
+1 val
+1 vere
+1 wain
+1 wyn
+1 wys
+
+#skill
+%skill=2D6+11
+$if %skill gt 19 $then %skill=20 $skill20plus
+%skill
+
+#skill20plus
+%roll=[D6]
+$if %roll gt 5 $then %skill=%skill+1 $skill20plus
+
+#Age
+%age_roll=[D6]+%skill-10
+$Age_table(%age_roll)
+
+#Age_table
+6 Fresh %true_age=20+[D2]
+4 Youthful %true_age=22+[D5]
+2 Adult %true_age=27+[D7]
+2 Mature %true_age=34+[D10]
+1 Aged %true_age=44+[D10]
+100 Old %true_age=54+[D10]
+
+#Glory
+%glory_roll=[D6]+%skill-10
+$Glory_table(%glory_roll)
+
+#Glory_table
+%outfit_mod=0
+%status_mod=0
+6 Unproven %status_mod=%status_mod-3
+4 Veteran
+2 Respected %status_mod=%status_mod+3
+2 Acclaimed %status_mod=%status_mod+5
+1 Famous %status_mod=%status_mod+5 %skill+=1
+100 Extraordinary %status_mod=%status_mod+10 %skill+=[D3] %outfit_mod+=1
+
+#status
+Warlord
+
+#outfit
+%outfit_roll=[D6]+%outfit_mod
+$outfit_table(%outfit_roll)
+
+#outfit_table
+2 Very expensive: Charger (6d6), Chainmail (10pts), Lance, Sword, Shield
+4 Spectacular: Charger (6d6), Reinforced Chainmail (12pts, silvered),
+Lance, Sword, Shield
+100 Regal: Charger (6d6), Reinforced Chainmail (12pts, golden), Lance,
+Sword, Shield
+
+#statistics
+1 %siz=12 %dex=10 %str=10 %con=12 %app=10
+1 %siz=12 %dex=15 %str=12 %con=14 %app=10
+2 %siz=14 %dex=11 %str=14 %con=14 %app=10
+1 %siz=17 %dex=8 %str=16 %con=13 %app=9
+1 %siz=16 %dex=13 %str=15 %con=16 %app=13
+$If %age_roll eq 15 $then %siz-=2 %dex-=2 %str-=2 %con-=2 %app-=2
+$If %age_roll gt 15 $then %siz-=6 %dex-=6 %str-=6 %con-=6 %app-=6
+$If %glory_roll gt 12 $then %siz+=1 %dex+=1 %str+=1 %con+=1 %app+=1
+$If %glory_roll gt 14 $then %siz+=1 %dex+=1 %str+=1 %con+=1 %app+=1
+$If %glory_roll gt 15 $then %siz+=1 %dex+=1 %str+=1 %con+=1 %app+=1
+
+#damage
+2 DAM: 0D6
+6 DAM: 1D6
+6 DAM: 2D6
+6 DAM: 3D6
+6 DAM: 4D6
+6 DAM: 5D6
+6 DAM: 6D6
+6 DAM: 7D6
+6 DAM: 8D6
+
+#weapon
+%sec_skill=%skill-[D3]+1
+3 Sword %skill & Lance %sec_skill
+1 Lance %skill & Sword %sec_skill
+1 Lance %skill & $special %sec_skill
+1 $special %skill & Lance %sec_skill
+
+#Special
+3 Axe
+1 Great Axe
+2 Mace
+
+#Archetype
+%archetype_roll=[D6]-1+1
+$archetype_table(%archetype_roll)
+
+#archetype_table
+1 Knave (Deceitful, Arbitrary, Prudent, Honor 8, Valorous 10)
+1 Schemer (Deceitful, Prudent, Valorous 15)
+2 Martial (Energetic, Valorous 17, Loyalty(Lord)
+1 Heroic (Proud, Reckless, Valorous 18, Honor)
+1 Christian (Forgiving, Merciful, Modest, Love(God), Valorous 15)
+
+#Role
+2 Huntsman (Awareness, Heraldry, Hunting
+1 Courtier (Dancing, Orate, Play
+1 Intriguer (Awareness, Intrigue, Recognize
+1 Monsterslayer (Awareness, Faerie Lore, Orate
+1 $DefaultRole(%archetype_roll
+%Sec_skill=[2D6]+8
+%sec_skill )
+
+#DefaultRole
+2 Intriguer (Awareness, Intrigue, Recognize
+2 Huntsman (Awareness, Heraldry, Hunting
+1 Monsterslayer (Awareness, Faerie Lore, Orate
+1 Templar (Read, Religion, Singing
+
+#Appearance
+Appearance:
+%eyes_mod=0
+Hair: $Hair &
+%eyes_roll=%eyes_mod+[D6]
+$if eyes_roll lt 1 $then %eyes_roll=1
+Eyes: $Eyes(%eyes_roll)  &
+Bear: $Beard
+
+#HAIR
+2 Blond %eyes_mod-=3
+1 Auburn %eyes_mod-=2
+1 Black
+2 Brown
+
+#Eyes
+1 Blue
+1 Hazel
+4 Brown
+
+#beard
+3 Full beard
+2 Trimmed beard
+1 Clean-shaven
+
+#Distinctive
+1 Hairiness and hair: $dis1
+1 Facial Expressions: $dis2
+1 Facial Features: $dis3
+1 Voice: $dis4
+1 Scars: $dis5
+1 Poise: $dis6
+
+#Dis1
+1 Unusually hirsute
+1 Glares a lot
+1 Unusual nose (shape, size)
+1 Rough, gravely
+1 Missing eye/hand/finger/teeth
+1 Fidgety, restless
+
+#dis2.
+1 Bushy eyebrows or moustache
+1 Frowns a lot
+1 Unusual jaw or chin
+1 Deep, booming (Brian Blessed)
+1 Has a slight limp
+1 Stands and strides
+
+#dis3
+1 Braided beard or hair
+1 Sneers a lot
+1 Piercing or kind eyes
+1 Soft, calm
+1 Ugly facial scar %app_mod-=2
+1 Friendly, a hugger
+
+#dis4
+1 Can't grow a beard
+1 Smiles a lot
+1 Big ears
+1 Nasal, annoying
+1 Broken nose %app_mod-=1
+1 Sleeps when he can
+
+#dis5
+1 Odd-colored hair (red, white)
+1 Laughs a lot
+1 Ugly %app_mod-=3
+1 Musical, nice
+1 Manly facial scar %app_mod+=1
+1 Relaxed, lounging
+
+#dis6
+1 Bald
+1 Stoneface
+1 Fine Features %app_mod+=3
+1 Silent or a chatterbox
+1 Totally unblemished by scars %app_mod+=2
+1 Still as a statue
