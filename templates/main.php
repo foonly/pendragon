@@ -2,6 +2,7 @@
 if (!defined("ENTRY")) exit("Invalid Entry Point");
 
 empty($_REQUEST['tab'])?$tab = "":$tab=$_REQUEST['tab'];
+($_REQUEST['nr'] > 1 && $_REQUEST['nr'] < 51)?$nr=$_REQUEST['nr']:$nr=1;
 
 $files = scandir(APATH."/data/");
 $options = "";
@@ -13,13 +14,18 @@ foreach ($files as $file) {
 }
 
 echo '
-    <form action="" method="get">
-        <select name="tab">
-            <option value="">Choose Table</option>
-            '.$options.'
-        </select>
-        <input type="submit" value="Generate"/>
-    </form>
+    <div class="form">
+        <form action="" method="get">
+            Table:
+            <select name="tab">
+                <option value="">Choose Table</option>
+                '.$options.'
+            </select><br/>
+            How many:
+            <input type="number" name="nr" value="'.$nr.'" min="1" max="50"/><br/>
+            <input type="submit" value="Generate"/>
+        </form>
+    </div>
     ';
 
 if (file_exists(APATH."/data/{$tab}.dat")) {
@@ -33,10 +39,11 @@ if (file_exists(APATH."/data/{$tab}.dat")) {
         }
     }
 
-    $table = nl2br($parser->generate());
-    echo '
-        <div>
-            '.$table.'
-        </div>
-        ';
+    for ($i=0;$i<$nr;$i++) {
+        echo '
+            <div class="record">
+                '.nl2br($parser->generate()).'
+            </div>
+            ';
+    }
 }
