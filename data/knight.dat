@@ -2,7 +2,7 @@
 
 #main
 $Initialize
-Warlord (in the year %year)
+Knight (in the year %year)
 Name: %name1$name2 (Born $born)
 Son of: %name1$name2 (Born $born_father, death $death_father)
 Father of: %name1$name2 (Born $born_son)
@@ -16,7 +16,7 @@ Weapon Skills: $Weapon
 Archetype: $archetype
 Role: $role
 $appearance
-Distinctive Feature: %temp_distinctive
+Distinctive Features: %temp_distinctive
 
 #Initialize
 %year=485
@@ -98,19 +98,25 @@ $Glory_table(%glory_roll)
 1 Famous %status_mod=%status_mod+5 %skill+=1
 100 Extraordinary %status_mod=%status_mod+10 %skill+=[D3] %outfit_mod+=1
 
+
 #status
-Warlord
+%status_roll=[D20]+%status_mod
+$if %status_roll lt 2 $then %status_roll=2 ; only allow natural 1
+$if %status_roll gt 19 $then %status_roll=19 ; only allow natural 20
+$status_result(%status_roll)
 
-#outfit
-%outfit_roll=[D6]+%outfit_mod
-$outfit_table(%outfit_roll)
+#status_result
+1 Villainous Black Knight %outfit=1
+1 Knight Errant %outfit_mod=1 %outfit=3
+10 Household Knight %outfit=4
+4 Vassal Knight %outfit_mod=1 %outfit=5
+2 Vassal Knight, officer %outfit=6
+1 Banneret %outfit=7
+1 $lord %outfit=8
 
-#outfit_table
-2 Very expensive: Charger (6d6), Chainmail (10pts), Lance, Sword, Shield
-4 Spectacular: Charger (6d6), Reinforced Chainmail (12pts, silvered),
-Lance, Sword, Shield
-100 Regal: Charger (6d6), Reinforced Chainmail (12pts, golden), Lance,
-Sword, Shield
+#Lord
+$if %glory_roll lt 11 $then Heir local Warlord $else Warlord
+
 
 #statistics
 1 %siz=12 %dex=10 %str=10 %con=12 %app=10
@@ -146,6 +152,7 @@ $If %glory_roll gt 15 $then %siz+=1 %dex+=1 %str+=1 %con+=1 %app+=1
 3 Axe
 1 Great Axe
 2 Mace
+
 
 #Archetype
 %archetype_roll=[D6]-1+1
@@ -199,57 +206,87 @@ Bear: $Beard
 1 Clean-shaven
 
 #Distinctive
-1 Hairiness and hair: $dis1
-1 Facial Expressions: $dis2
-1 Facial Features: $dis3
-1 Voice: $dis4
-1 Scars: $dis5
-1 Poise: $dis6
+1 test $dis1
+1 $dis2
+1 $dis3
+1 $dis4
+1 $dis5
+1 $dis6
 
-#Dis1
+#dis1
 1 Unusually hirsute
-1 Glares a lot
-1 Unusual nose (shape, size)
-1 Rough, gravely
-1 Missing eye/hand/finger/teeth
-1 Fidgety, restless
-
-#dis2.
 1 Bushy eyebrows or moustache
+1 Braided beard or hair
+1 Can't grow a beard
+1 Odd-colored hair (red, white)
+1 Bald
+
+#dis2
+1 Glares a lot
 1 Frowns a lot
-1 Unusual jaw or chin
-1 Deep, booming (Brian Blessed)
-1 Has a slight limp
-1 Stands and strides
+1 Sneers a lot
+1 Smiles a lot
+1 Laughs a lot
+1 Stoneface
 
 #dis3
-1 Braided beard or hair
-1 Sneers a lot
+1 Unusual nose (shape, size)
+1 Unusual jaw or chin
 1 Piercing or kind eyes
-1 Soft, calm
-1 Ugly facial scar %app_mod-=2
-1 Friendly, a hugger
+1 Big ears
+1 Ugly %app_mod-=3
+1 Fine Features %app_mod+=3
 
 #dis4
-1 Can't grow a beard
-1 Smiles a lot
-1 Big ears
-1 Nasal, annoying
-1 Broken nose %app_mod-=1
-1 Sleeps when he can
+1 Rough, gravely voice
+1 Deep, booming (Brian Blessed) voice
+1 Soft, calm voice
+1 Nasal, annoying voice
+1 Musical, nice voice
+1 Silent or a chatterbox
 
 #dis5
-1 Odd-colored hair (red, white)
-1 Laughs a lot
-1 Ugly %app_mod-=3
-1 Musical, nice
+1 Missing eye/hand/finger/teeth
+1 Has a slight limp
+1 Ugly facial scar %app_mod-=2
+1 Broken nose %app_mod-=1
 1 Manly facial scar %app_mod+=1
-1 Relaxed, lounging
+1 Totally unblemished by scars %app_mod+=2
 
 #dis6
-1 Bald
-1 Stoneface
-1 Fine Features %app_mod+=3
-1 Silent or a chatterbox
-1 Totally unblemished by scars %app_mod+=2
+1 Fidgety, restless
+1 Stands and strides
+1 Friendly, a hugger
+1 Sleeps when he can
+1 Relaxed, lounging
 1 Still as a statue
+
+#outfit
+%outfit_roll=[D6]+%outfit_mod
+$outfit_rowmod_table(%outfit_roll)
+%outfit_result=%outfit+%outfit_rowmod
+$outfit_table(%outfit_result)
+
+#outfit_rowmod_table
+2 %outfit_rowmod=-1
+4 %outfit_rowmod=0
+1 %outfit_rowmod=1
+100 %outfit_rowmod=2
+$if %glory_roll gt 15 $then %outfit_rowmod +=1
+
+#outfit_table
+1 $glory_outfit(%glory_roll)
+1 Very Cheap
+1 Cheap
+1 Average
+1 Expensive
+1 Very Expensive
+1 Spectacular
+100 Regal
+
+#glory_outfit
+6 %outfit_result=3
+6 %outfit_result=4
+2 %outfit_result=5
+100  %outfit_result=6
+$outfit_table(%outfit_result)

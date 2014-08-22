@@ -3,8 +3,14 @@ define("ENTRY","index");
 
 require "include/init.php";
 
-$parser->populate(file_get_contents("data/warlord.dat"));
-$table = nl2br($parser->generate());
+$template = "main";
+
+$output = "";
+if (file_exists(getcwd()."/templates/{$template}.php")) {
+    ob_start();
+    include "templates/{$template}.php";
+    $output = ob_get_clean();
+}
 
 $html = file_get_contents("header/header.html");
-echo str_replace("#page#",$table,$html);
+echo str_replace("#page#",$output,$html);
