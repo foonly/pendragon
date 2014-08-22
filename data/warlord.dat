@@ -57,7 +57,6 @@ $if %born_son gt %year $then to be
 1 $distinctive{set_dist} & $distinctive{set_dist}
 1 $distinctive{set_dist} & $distinctive{set_dist} & $distinctive{set_dist}
 
-
 #Final_Statistics
 %HP=%con+%siz
 %dam_index=%str+%siz

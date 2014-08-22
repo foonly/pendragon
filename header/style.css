@@ -1,3 +1,17 @@
 body {
     font-family: sans-serif;
+    background: #888;
+}
+
+.form {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    background: #fff;
+}
+.record {
+    margin: 10px;
+    padding: 4px;
+    border: 1px solid black;
+    background: #fff;
 }
