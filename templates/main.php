@@ -22,7 +22,16 @@ echo '
                 '.$options.'
             </select><br/>
             How many:
-            <input type="number" name="nr" value="'.$nr.'" min="1" max="50"/><br/>
+            <input type="number" id="nr" name="nr" value="'.$nr.'" min="1" max="50"/>
+            <input type="submit" name="nr" value="1"/>
+            <input type="submit" name="nr" value="2"/>
+            <input type="submit" name="nr" value="3"/>
+            <input type="submit" name="nr" value="4"/>
+            <input type="submit" name="nr" value="5"/>
+            <input type="submit" name="nr" value="10"/>
+
+
+            <br/>
             <input type="submit" value="Generate"/>
         </form>
     </div>

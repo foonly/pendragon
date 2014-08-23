@@ -1,6 +1,24 @@
 body {
-    font-family: sans-serif;
-    background: #888;
+    font-family: 'chantelli_antiquaregular', fantasy, serif;
+    background: url("images/wood.png");
+    padding-right: 250px;
+    line-height: 130%;
+}
+
+h1 {
+    font-family: plainblacknormal;
+    font-size: 42pt;
+    font-weight: normal;
+    margin: 50px;
+    color: #B00300;
+    text-shadow: #000 0px 0px 6px,#000 0px 0px 6px,#000 0px 0px 6px,#000 0px 0px 6px;
+}
+
+.sidebar {
+    position: absolute;
+    top: 120px;
+    right: 20px;
+    width: 200px;
 }
 
 .form {
@@ -8,10 +26,26 @@ body {
     padding: 10px;
     border: 1px solid black;
     background: #fff;
+    background: url("images/parchment.jpg");
+    box-shadow: #000 3px 3px 6px;
 }
 .record {
+    display: inline-block;
     margin: 10px;
-    padding: 4px;
+    margin-top: 30px;
+    padding: 15px;
+    padding-bottom: 20px;
     border: 1px solid black;
     background: #fff;
+    background: url("images/parchment.jpg");
+    box-shadow: #000 3px 3px 6px;
+}
+
+input, select {
+    font: inherit;
+    padding: 3px;
+}
+
+input#nr {
+    width: 50px;
 }
