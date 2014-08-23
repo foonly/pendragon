@@ -25,7 +25,7 @@ Distinctive Feature: %temp_distinctive
 %temp_statistics=$statistics
 %app_mod=0
 %temp_distinctive=$N_distinctive
-%app+=app_mod
+%app+=%app_mod
 %age_temp=$age
 
 #born
