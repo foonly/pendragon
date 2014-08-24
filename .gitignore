@@ -1,3 +1,5 @@
 # Created by .gitignore support plugin (hsz.mobi)
 **/.idea/workspace.xml
 **/.idea/tasks.xml
+**/include/settings.php
+**/data/*

@@ -13,6 +13,9 @@ h1 {
     color: #B00300;
     text-shadow: #000 0px 0px 6px,#000 0px 0px 6px,#000 0px 0px 6px,#000 0px 0px 6px;
 }
+input[type=password]{
+    font-family: fantasy;
+}
 
 footer {
     color: #888;
@@ -29,24 +32,22 @@ footer {
     width: 220px;
 }
 
+.form,.record,.edit {
+    display: block;
+    margin: 10px;
+    background: url("images/parchment.jpg");
+    box-shadow: #000 3px 3px 6px;
+    border: 1px solid black;
+}
+
 .form {
     margin: 20px;
     padding: 10px;
-    border: 1px solid black;
-    background: #fff;
-    background: url("images/parchment.jpg");
-    box-shadow: #000 3px 3px 6px;
 }
 .record {
-    display: block;
-    margin: 10px;
     margin-top: 30px;
     padding: 15px;
     padding-bottom: 20px;
-    border: 1px solid black;
-    background: #fff;
-    background: url("images/parchment.jpg");
-    box-shadow: #000 3px 3px 6px;
 }
 
 input, select {
@@ -56,4 +57,32 @@ input, select {
 
 input#nr {
     width: 50px;
+}
+
+.edit {
+    padding: 10px;
+}
+.edit input#name {
+    width: 100%;
+    height: 60px;
+    font-size: 20pt;
+    background: transparent;
+    padding: 0px;
+    border:0px;
+    margin-bottom:10px;
+}
+.edit textarea {
+    font-family: serif;
+    font-size: 14pt;
+    width: 100%;
+    background: transparent;
+    padding: 0px;
+    border:0px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+#message {
+    float: right;
+    color: #B00300;
+    font-weight: bold;
 }

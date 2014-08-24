@@ -1,0 +1,7 @@
+DirectoryIndex index.php
+
+Options +FollowSymLinks
+RewriteEngine On
+RewriteRule ^([0-9A-Za-z_]+)\.do  post.php?template=$1 [QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([0-9A-Za-z]+)$  index.php?template=$1&id=$3 [QSA]

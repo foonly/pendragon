@@ -1,9 +1,14 @@
 <?php
 define("ENTRY","index");
 
-require "include/init.php";
+require "include/initDisplay.php";
 
-$template = "main";
+if (ctype_alnum($_REQUEST['template']) && file_exists(APATH."/templates/{$_REQUEST['template']}.php")) {
+    $template = $_REQUEST['template'];
+} else {
+    $template = "main";
+}
+
 
 $output = "";
 if (file_exists(getcwd()."/templates/{$template}.php")) {
@@ -12,5 +17,5 @@ if (file_exists(getcwd()."/templates/{$template}.php")) {
     $output = ob_get_clean();
 }
 
-$html = file_get_contents("header/header.html");
-echo str_replace("#page#",$output,$html);
+$html = str_replace("#page#",$output,$html);
+echo $html;
