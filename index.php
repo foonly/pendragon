@@ -13,8 +13,11 @@ if (ctype_alnum($_REQUEST['template']) && file_exists(APATH."/templates/{$_REQUE
 $output = "";
 if (file_exists(getcwd()."/templates/{$template}.php")) {
     ob_start();
-    include "templates/{$template}.php";
-    $output = ob_get_clean();
+    if (include "templates/{$template}.php") {
+        $output = ob_get_clean();
+    } else {
+        exit();
+    }
 }
 
 $html = str_replace("#page#",$output,$html);

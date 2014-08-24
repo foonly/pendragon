@@ -49,11 +49,17 @@ if (file_exists(APATH."/data/{$tab}.dat")) {
         }
     }
 
-    for ($i=0;$i<$nr;$i++) {
-        echo '
-            <div class="record">
-                '.nl2br($parser->generate()).'
-            </div>
-            ';
+    if (empty($_REQUEST['pdf'])) {
+        for ($i=0;$i<$nr;$i++) {
+            echo '
+                <div class="record">
+                    '.nl2br($parser->generate()).'
+                </div>
+                ';
+        }
+    } else {
+        ob_end_clean();
+        echo 'PDF';
+        return false;
     }
 }
