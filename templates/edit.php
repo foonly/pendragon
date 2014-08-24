@@ -22,15 +22,14 @@ foreach ($files as $file) {
 echo '
     <script src="header/edit.js"></script>
     <div class="form">
-        <form action="" method="get">
+        <form id="selector" action="" method="get">
             Table:
-            <select name="tab">
+            <select id="tab" name="tab">
                 <option value="">Choose Table</option>
                 <option value="newtable">New Table</option>
                 <option value="">------------</option>
                 '.$options.'
             </select><br/>
-            <input type="submit" value="Edit"/>
         </form>
     </div>
     ';
@@ -41,7 +40,7 @@ if (file_exists(APATH."/data/{$tab}.dat") || $tab == "newtable") {
     echo '
         <div class="edit">
             <form id="editform" action="" method="post">
-                <input type="hidden" name="tab" value="'.$tab.'"/>
+                <input type="hidden" id="oldtab" name="tab" value="'.$tab.'"/>
                 <input type="hidden" name="delconf" value=""/>
                 <input type="text" id="name" name="tablename" value="'.us2uc($tab).'" placeholder="Table Name"/>
                 <textarea id="body" name="tablebody" cols="80" rows="18">'.$data.'</textarea>
