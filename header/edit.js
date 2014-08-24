@@ -3,6 +3,7 @@
  */
 
 window.onload = function () {
+    document.getElementById("editbutton").remove();
     var body = document.getElementById("body");
     if (body != null) {
         body.addEventListener('input', function() {
