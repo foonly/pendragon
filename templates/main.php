@@ -33,6 +33,7 @@ echo '
 
             <br/>
             <input type="submit" value="Generate"/>
+            <input type="submit" name="pdf" value="Generate PDF"/>
         </form>
     </div>
     ';
