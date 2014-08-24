@@ -3,8 +3,11 @@ if (!defined("ENTRY")) exit("Invalid Entry Point");
 
 header ("Content-Type: text/html; charset=UTF-8");
 
-define("APATH",getcwd());
-
+require "settings.php";
 require "randomtable/randomtable.class.php";
 
 $parser = new randomTable();
+
+function us2uc ($text) { // Again bad practice, move this if this project gets more functions.
+    return ucwords(str_replace("_"," ",$text));
+}
