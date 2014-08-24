@@ -29,7 +29,8 @@ echo '
                 <option value="newtable">New Table</option>
                 <option value="">------------</option>
                 '.$options.'
-            </select><br/>
+            </select>
+            <input type="submit" id="editbutton" value="Edit"/>
         </form>
     </div>
     ';
