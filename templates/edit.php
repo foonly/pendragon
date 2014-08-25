@@ -3,11 +3,16 @@ if (!defined("ENTRY")) exit("Invalid Entry Point");
 
 empty($_REQUEST['tab'])?$tab = "":$tab=$_REQUEST['tab'];
 
-if (!include "include/secret.php") return false;
+if (!include "include/secret.php") return true;
 
 // This will be my dirty little secret, but it would be silly to create a framework for saving one file.
 if (!empty($_POST['save']) || !empty($_POST['delconf'])) {
     include "include/savetable.php";
+    if (!$success) {
+        echo '
+            <div class="record">Something went wrong. Check server permissions.</div>
+            ';
+    }
 }
 
 $files = scandir(APATH."/data/");
