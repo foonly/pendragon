@@ -1,5 +1,6 @@
 body {
     font-family: 'chantelli_antiquaregular', fantasy, serif;
+    font-size: 12pt;
     background: url("images/wood.png");
     padding-right: 250px;
     line-height: 130%;
@@ -9,11 +10,12 @@ h1 {
     font-family: plainblacknormal;
     font-size: 42pt;
     font-weight: normal;
-    margin: 50px;
+    margin: 30px;
     color: #B00300;
+    line-height: 70px;
     text-shadow: #000 0px 0px 6px,#000 0px 0px 6px,#000 0px 0px 6px,#000 0px 0px 6px;
 }
-input[type=password]{
+input[type=password] {
     font-family: fantasy;
 }
 
