@@ -59,7 +59,29 @@ if (file_exists(APATH."/data/{$tab}.dat")) {
         }
     } else {
         ob_end_clean();
-        echo 'PDF';
+        define('FPDF_FONTPATH',APATH.'/header/');
+        require_once "tfpdf/tfpdf.php";
+
+        $pdf = new tfpdf('P','mm','a4');
+        $pdf->SetAutoPageBreak(true);
+        $pdf->SetMargins(5, 5, 5);
+        $pdf->SetDrawColor(0,0,0);
+        $pdf->AddFont('Chantelli','','Chantelli_Antiqua-webfont.ttf',true);
+
+        $pdf->addPage();
+
+        $pdf->SetFont('Chantelli','',14);
+        $pdf->MultiCell("0","10",us2uc($tab),"");
+
+        $pdf->SetFont('Chantelli','',10);
+        for ($i=0;$i<$nr;$i++) {
+            $pdf->MultiCell("0","5","\n".$parser->generate(),"T");
+            $pdf->ln();
+        }
+
+        // Output and close pdf.
+        $pdf->Output("{$tab}.pdf","I");
+        $pdf->Close();
         return false;
     }
 }
