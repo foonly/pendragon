@@ -55,14 +55,14 @@ if (file_exists(APATH."/data/{$tab}.dat")) {
         }
     } else {
         ob_end_clean();
-        define('FPDF_FONTPATH',APATH.'/header/');
         require_once "tfpdf/tfpdf.php";
 
         $pdf = new tfpdf('P','mm','a4');
         $pdf->SetAutoPageBreak(true);
         $pdf->SetMargins(5, 5, 5);
         $pdf->SetDrawColor(0,0,0);
-        $pdf->AddFont('Chantelli','','Chantelli_Antiqua-webfont.ttf',true);
+//        $pdf->AddFont('Chantelli','','Chantelli_Antiqua-webfont.ttf',true);
+        $pdf->AddFont('Chantelli','','DejaVuSerif.ttf',true);
 
         $pdf->addPage();
 
