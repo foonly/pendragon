@@ -3,7 +3,7 @@ define("ENTRY","index");
 
 require "include/initDisplay.php";
 
-if (ctype_alnum($_REQUEST['template']) && file_exists(APATH."/templates/{$_REQUEST['template']}.php")) {
+if (!empty($_REQUEST['template']) && ctype_alnum($_REQUEST['template']) && file_exists(APATH."/templates/{$_REQUEST['template']}.php")) {
     $template = $_REQUEST['template'];
 } else {
     $template = "main";

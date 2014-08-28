@@ -15,13 +15,9 @@ if (!empty($_POST['save']) || !empty($_POST['delconf'])) {
     }
 }
 
-$files = scandir(APATH."/data/");
 $options = "";
-foreach ($files as $file) {
-    if (substr($file,0,1) != ".") {
-        $f = substr($file,0,strpos($file,"."));
-        $options .= '<option value="'.$f.'"'.(($tab == $f)?' selected="selected"':'').'>'.us2uc($f).'</option>';
-    }
+foreach (getFiles("dat") as $f) {
+    $options .= '<option value="'.$f.'"'.(($tab == $f)?' selected="selected"':'').'>'.us2uc($f).'</option>';
 }
 
 echo '

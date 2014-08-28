@@ -4,13 +4,9 @@ if (!defined("ENTRY")) exit("Invalid Entry Point");
 empty($_REQUEST['tab'])?$tab = "":$tab=$_REQUEST['tab'];
 ($_REQUEST['nr'] > 1 && $_REQUEST['nr'] < 51)?$nr=$_REQUEST['nr']:$nr=1;
 
-$files = scandir(APATH."/data/");
 $options = "";
-foreach ($files as $file) {
-    if (substr($file,0,1) != ".") {
-        $f = substr($file,0,strpos($file,"."));
-        $options .= '<option value="'.$f.'"'.(($tab == $f)?' selected="selected"':'').'>'.us2uc($f).'</option>';
-    }
+foreach (getFiles("dat") as $f) {
+    $options .= '<option value="'.$f.'"'.(($tab == $f)?' selected="selected"':'').'>'.us2uc($f).'</option>';
 }
 
 echo '
@@ -33,7 +29,7 @@ echo '
 
             <br/>
             <input type="submit" value="Generate"/>
-            <!-- <input type="submit" name="pdf" value="Generate PDF"/> -->
+            <input type="submit" name="pdf" value="Generate PDF"/>
         </form>
     </div>
     ';
