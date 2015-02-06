@@ -1,5 +1,10 @@
 DirectoryIndex index.php
 
+<Files  ~ "\.dat$">
+  Order allow,deny
+  Deny from all
+</Files>
+
 Options +FollowSymLinks
 RewriteEngine On
 RewriteRule ^([0-9A-Za-z_]+)\.do  post.php?template=$1 [QSA]
