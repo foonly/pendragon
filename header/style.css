@@ -26,7 +26,12 @@ footer {
     margin-top: 50px;
     margin-bottom: 20px;
 }
-
+em {
+    font-weight: bold;
+}
+strong {
+    font-weight: bolder;
+}
 .sidebar {
     position: absolute;
     top: 120px;

@@ -51,7 +51,7 @@ if ($data->hasFile()) {
         if ($data->hasHeader()) {
             echo '
                 <div class="header">
-                    '.nl2br($data->getHeader()).'
+                    '.nl2br(textFormatter::transform($data->getHeader())).'
                 </div>
                 ';
         }
@@ -59,7 +59,7 @@ if ($data->hasFile()) {
         for ($i=0;$i<$nr;$i++) {
             echo '
                 <div class="record">
-                    '.nl2br($parser->generate()).'
+                    '.nl2br(textFormatter::transform($parser->generate())).'
                 </div>
                 ';
         }
@@ -67,7 +67,7 @@ if ($data->hasFile()) {
         if ($data->hasFooter()) {
             echo '
                 <div class="footer">
-                    '.nl2br($data->getFooter()).'
+                    '.nl2br(textFormatter::transform($data->getFooter())).'
                 </div>
                 ';
         }

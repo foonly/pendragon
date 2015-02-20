@@ -84,21 +84,21 @@ if ($data->hasFile() || $tab == "newtable") {
         if ($data->hasHeader()) {
             echo '
                 <div class="header">
-                    '.nl2br($data->getHeader()).'
+                    '.nl2br(textFormatter::transform($data->getHeader())).'
                 </div>
                 ';
         }
 
         echo '
             <div class="record">
-                '.nl2br($parser->generate()).'
+                '.nl2br(textFormatter::transform($parser->generate())).'
             </div>
             ';
 
         if ($data->hasFooter()) {
             echo '
                 <div class="footer">
-                    '.nl2br($data->getFooter()).'
+                    '.nl2br(textFormatter::transform($data->getFooter())).'
                 </div>
                 ';
         }
