@@ -57,6 +57,9 @@ footer {
     color: #888;
     text-shadow: #000 0px 0px 3px;
 }
+.footer {
+    font-size: 12pt;
+}
 
 
 input, select {
