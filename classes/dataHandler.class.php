@@ -50,25 +50,37 @@ class dataHandler {
         $this->footer = $footer;
     }
 
-    public function save($tableName) {
+
+    public function tabName($tableName) {
         $tableName = strtolower(str_replace(" ","_",$tableName));
         $tableName = preg_replace('/[^a-z0-9_-]/','',$tableName);
+        return $tableName;
+    }
 
-        if (empty($tableName) || !file_put_contents(DATADIR.$tableName.".dat",implode(DELIMITER,array($this->data,$this->header,$this->footer)))) {
+    public function save($tableName) {
+        $tableName = $this->tabName($tableName);
+        if (empty($tableName)) return false;
+        if (file_put_contents(DATADIR.$tableName.".dat",implode(DELIMITER,array($this->data,$this->header,$this->footer)))) {
+            if ($this->tableName != $tableName) {  // Name changed, delete old table
+                if ($this->delete()) {
+                    $this->tableName = $tableName;
+                } else {
+                    return false;
+                }
+            }
+            $this->hasFile = true;
+        } else {
             return false;
         }
 
-        if ($this->tableName != $tableName) {  // Name changed, delete old table
-            return $this->delete();
-        }
         return true;
     }
 
     public function delete() {
-        if ($this->hasFile) {
-            if (unlink(DATADIR.$this->tableName.".dat")) {
-                return true;
-            }
+        if (!$this->hasFile) return true;
+        if (unlink(DATADIR.$this->tableName.".dat")) {
+            $this->hasFile = false;
+            return true;
         }
         return false;
     }

@@ -11,14 +11,18 @@ if (!empty($_POST['save'])) {
     $data->setData($_POST['tablebody']);
     $data->setHeader($_POST['header']);
     $data->setFooter($_POST['footer']);
-    if (!$data->save($_POST['tablename'])) {
+    if ($data->save($_POST['tablename'])) {
+        $tab = $data->tabName($_POST['tablename']);
+    } else {
         echo '
             <div class="record">Something went wrong. Check server permissions.</div>
             ';
     }
 }
 if (!empty($_POST['delconf'])) {
-    if (!$data->delete()) {
+    if ($data->delete()) {
+        $tab = "";
+    } else {
         echo '
             <div class="record">Something went wrong. Check server permissions.</div>
             ';
