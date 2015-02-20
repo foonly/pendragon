@@ -5,10 +5,20 @@ empty($_REQUEST['tab'])?$tab = "":$tab=$_REQUEST['tab'];
 
 if (!include "include/secret.php") return true;
 
-// This will be my dirty little secret, but it would be silly to create a framework for saving one file.
-if (!empty($_POST['save']) || !empty($_POST['delconf'])) {
-    include "include/savetable.php";
-    if (!$success) {
+$data = new dataHandler($tab);
+
+if (!empty($_POST['save'])) {
+    $data->setData($_POST['tablebody']);
+    $data->setHeader($_POST['header']);
+    $data->setFooter($_POST['footer']);
+    if (!$data->save($_POST['tablename'])) {
+        echo '
+            <div class="record">Something went wrong. Check server permissions.</div>
+            ';
+    }
+}
+if (!empty($_POST['delconf'])) {
+    if (!$data->delete()) {
         echo '
             <div class="record">Something went wrong. Check server permissions.</div>
             ';
@@ -36,16 +46,18 @@ echo '
     </div>
     ';
 
-if (file_exists(APATH."/data/{$tab}.dat") || $tab == "newtable") {
+if ($data->hasFile() || $tab == "newtable") {
     if ($tab == "newtable") $tab = "";
-    if (empty($tab)) $data = ""; else $data = file_get_contents(APATH."/data/{$tab}.dat");
+
     echo '
         <div class="edit">
             <form id="editform" action="" method="post">
                 <input type="hidden" id="oldtab" name="tab" value="'.$tab.'"/>
                 <input type="hidden" name="delconf" value=""/>
                 <input type="text" id="name" name="tablename" value="'.us2uc($tab).'" placeholder="Table Name"/>
-                <textarea id="body" name="tablebody" cols="80" rows="18">'.$data.'</textarea>
+                <textarea id="body" name="tablebody" cols="80" rows="18">'.$data->getData().'</textarea>
+                <input type="text" id="header" name="header" value="'.htmlentities($data->getHeader()).'" placeholder="Header"/><br/>
+                <input type="text" id="footer" name="footer" value="'.htmlentities($data->getFooter()).'" placeholder="Footer"/><br/>
                 <div id="message"></div>
                 <input type="submit" name="save" value="Save"/>
                 <input type="submit" name="save" value="Save &amp; Preview"/>
@@ -55,19 +67,37 @@ if (file_exists(APATH."/data/{$tab}.dat") || $tab == "newtable") {
         ';
 
     if (!empty($_POST['save']) && $_POST['save'] != "Save") {
-        $parser->populate($data,$tab);
+        $parser->populate($data->getdata(),$tab);
 
         while ($inc = $parser->popInclude()) {
-            if (!$parser->isLoaded($inc) && file_exists(APATH."/data/{$inc}.dat")) {
-                $data = file_get_contents(APATH."/data/{$inc}.dat");
-                $parser->populate($data);
+            if (!$parser->isLoaded($inc)) {
+                $newData = new dataHandler($inc);
+                if ($newData->hasFile()) {
+                    $parser->populate($newData->getdata());
+                }
             }
         }
+        if ($data->hasHeader()) {
+            echo '
+                <div class="header">
+                    '.nl2br($data->getHeader()).'
+                </div>
+                ';
+        }
+
         echo '
             <div class="record">
                 '.nl2br($parser->generate()).'
             </div>
             ';
+
+        if ($data->hasFooter()) {
+            echo '
+                <div class="footer">
+                    '.nl2br($data->getFooter()).'
+                </div>
+                ';
+        }
     }
 
 }

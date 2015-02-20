@@ -34,22 +34,40 @@ echo '
     </div>
     ';
 
-if (file_exists(APATH."/data/{$tab}.dat")) {
-    $data = file_get_contents(APATH."/data/{$tab}.dat");
-    $parser->populate($data,$tab);
+$data = new dataHandler($tab);
+if ($data->hasFile()) {
+    $parser->populate($data->getData(),$tab);
 
     while ($inc = $parser->popInclude()) {
-        if (!$parser->isLoaded($inc) && file_exists(APATH."/data/{$inc}.dat")) {
-            $data = file_get_contents(APATH."/data/{$inc}.dat");
-            $parser->populate($data);
+        if (!$parser->isLoaded($inc)) {
+            $newData = new dataHandler($inc);
+            if ($newData->hasFile()) {
+                $parser->populate($newData->getdata());
+            }
         }
     }
 
     if (empty($_REQUEST['pdf'])) {
+        if ($data->hasHeader()) {
+            echo '
+                <div class="header">
+                    '.nl2br($data->getHeader()).'
+                </div>
+                ';
+        }
+
         for ($i=0;$i<$nr;$i++) {
             echo '
                 <div class="record">
                     '.nl2br($parser->generate()).'
+                </div>
+                ';
+        }
+
+        if ($data->hasFooter()) {
+            echo '
+                <div class="footer">
+                    '.nl2br($data->getFooter()).'
                 </div>
                 ';
         }

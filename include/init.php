@@ -5,6 +5,7 @@ header ("Content-Type: text/html; charset=UTF-8");
 
 require "settings.php";
 require "randomtable/randomtable.class.php";
+require APATH."/classes/dataHandler.class.php";
 
 $parser = new randomTable();
 
