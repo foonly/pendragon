@@ -1,0 +1,3 @@
+[submodule "lib/randomtable"]
+	path = lib/randomtable
+	url = git@github.com:foonly/randomtable.git

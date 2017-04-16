@@ -4,7 +4,7 @@ if (!defined("ENTRY")) exit("Invalid Entry Point");
 header ("Content-Type: text/html; charset=UTF-8");
 
 require "settings.php";
-require_once "randomtable/randomtable.class.php";
+require_once APATH."/lib/randomtable/randomtable.class.php";
 require APATH."/classes/dataHandler.class.php";
 require APATH."/classes/textFormatter.class.php";
 

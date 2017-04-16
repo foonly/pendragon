@@ -1,7 +1,7 @@
 <?php
 define("ENTRY","index");
 
-require "include/initDisplay.php";
+require "../include/initDisplay.php";
 
 if (!empty($_REQUEST['template']) && ctype_alnum($_REQUEST['template']) && file_exists(APATH."/templates/{$_REQUEST['template']}.php")) {
     $template = $_REQUEST['template'];
@@ -11,9 +11,9 @@ if (!empty($_REQUEST['template']) && ctype_alnum($_REQUEST['template']) && file_
 
 
 $output = "";
-if (file_exists(getcwd()."/templates/{$template}.php")) {
+if (file_exists(APATH."/templates/{$template}.php")) {
     ob_start();
-    if (include "templates/{$template}.php") {
+    if (include APATH."/templates/{$template}.php") {
         $output = ob_get_clean();
     } else {
         exit();

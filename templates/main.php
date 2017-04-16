@@ -2,7 +2,7 @@
 if (!defined("ENTRY")) exit("Invalid Entry Point");
 
 empty($_REQUEST['tab'])?$tab = "":$tab=$_REQUEST['tab'];
-($_REQUEST['nr'] > 1 && $_REQUEST['nr'] < 51)?$nr=$_REQUEST['nr']:$nr=1;
+(!empty($_REQUEST['nr']) && $_REQUEST['nr'] > 1 && $_REQUEST['nr'] < 51)?$nr=$_REQUEST['nr']:$nr=1;
 
 $options = "";
 foreach (getFiles("dat") as $f) {
